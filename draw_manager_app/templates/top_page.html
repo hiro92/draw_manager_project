@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Top Page{% endblock %}
+
+{% block contents %}
+
+    <!--ログイン中だけ表示-->
+    {% if user.is_authenticated %}
+        <div class="draw_search">
+        <p>検索</p>
+            <form action="{% url 'draw:draw_list' %}" method="get">
+                <input type="text" name="query" value="{{ request.GET.query }}" placeholder="図面番号を入力" maxlength="20">
+                <button class="btn btn-primary" type="submit">検索</button>
+            </form>
+        </div>
+        <div class="draw_create">
+        <h1>新規作成</h1>
+        <a class="button" href="{% url 'draw:draw_create' %}" class="btn btn-primary">作成する</a>
+        </div>
+
+
+    {% else %}
+        <!--ログアウト中だけ表示-->
+        <div class="explanation">
+            <h2 class="top_page_title">段取りの時間を短縮しませんか?</h2>
+            <p>図面によって異なる材料や外注先等を、データにして段取りの時間を減らします。</p>
+            <a class="button" href="{% url 'account_signup' %}">アカウントを作成</a>
+        </div>
+    {% endif %}
+
+
+{% endblock %}

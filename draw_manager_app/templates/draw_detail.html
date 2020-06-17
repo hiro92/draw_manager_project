@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}図面詳細{% endblock %}
+
+{% block contents %}
+    <div class="container">
+        <div class="my_div_style w-100">
+            <div class="row">
+                <div class="col-3">
+                    <strong>図面番号</strong>
+                </div>
+                <div class="col-9">
+                    {{ object.draw_number }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>会社名</strong>
+                </div>
+                <div class="col-9">
+                    {{ object.customer }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-2">
+                    <strong>材料</strong>
+                </div>
+                <div class="col-4">
+                    {{ object.material }}
+                </div>
+                <div class="col-2">
+                    <strong>サイズ</strong>
+                </div>
+                <div class="col-4">
+                    {{ object.material_size }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-2">
+                    <strong>外注先</strong>
+                </div>
+                <div class="col-4">
+                    {% if object.outsourcing %}
+                        {{ object.outsourcing }}
+                    {% else %}
+                        <p>無し</p>
+                    {% endif %}
+                </div>
+                <div class="col-2">
+                    <strong>内容</strong>
+                </div>
+                <div class="col-4">
+                    {% if object.outsourcing_content %}
+                        {{ object.outsourcing_content }}
+                    {% else %}
+                        <p>無し</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>写真1</strong>
+                </div>
+                <div class="col-9">
+                    {% if object.photo1 %}
+                        <img src="{{ object.photo1.url }}" width="200" height="200">
+                    {% else %}
+                        <p>無し</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>写真2</strong>
+                </div>
+                <div class="col-9">
+                    {% if object.photo2 %}
+                        <img src="{{ object.photo2.url }}" width="200" height="200">
+                    {% else %}
+                        <p>無し</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>写真3</strong>
+                </div>
+                <div class="col-9">
+                    {% if object.photo3 %}
+                        <img src="{{ object.photo3.url }}" width="200" height="200">
+                    {% else %}
+                        <p>無し</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>作成日時</strong>
+                </div>
+                <div class="col-9">
+                    {{ object.created_at }}
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="col-3">
+                    <strong>更新日時</strong>
+                </div>
+                <div class="col-9">
+                    {{ object.updated_at }}
+                </div>
+            </div>
+
+            <hr>
+
+            <a class="btn btn-success mt-5 mb-3" href="{% url 'draw:draw_update' object.pk %}">編集</a>
+        <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'draw:draw_delete' object.pk %}">削除</a>
+
+        </div>
+    </div>
+
+{% endblock %}

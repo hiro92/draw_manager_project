@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!--favicon-->
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+
+    <!--CSS-->
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@1,900&display=swap" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div id="wrapper">
+    <header class="top_page_header">
+        <h1><a href="{% url 'draw:top_page' %}">Draw Manager</a></h1>
+        <nav>
+            <ul class="main_nav">
+                <!--ログイン中表示-->
+                {% if user.is_authenticated %}
+                    <li><p>{{ redirect_field_name }}</p></li>
+                    <li><a href="{% url 'draw:draw_list' %}">Draw list</a></li>
+                    <li><a href="{% url 'account_logout' %}">Log out</a></li>
+                {% else %}
+                    <!--ログアウト中表示-->
+                    <li><a href="#">What Draw Manager</a></li>
+                    <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+                    <li><a href="{% url 'account_login' %}">Sign In</a></li>
+                {% endif %}
+                <li><a href="{% url 'draw:inquiry' %}">Inquiry</a></li>
+
+                <!--ユーザー名（メールアドレス）を表示-->
+                {% if user.is_authenticated %}
+                    <li><a>{{ user.get_username }}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!--メッセージ-->
+    {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="my_div_style w-100">
+                    <ul class="messages" style="list-style: none;">
+                        {% for message in messages %}
+                            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+                                {{ message }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% block contents %}{% endblock %}
+
+    <!---footer---->
+    <footer>
+        <div class="footer">
+            <p><small>&copy; 2020 Draw Manager</small></p>
+        </div>
+    </footer>
+    <script src="{% static "script.js" %}"></script>
+</div>
+</body>
+</html>
