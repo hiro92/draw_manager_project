@@ -48,7 +48,7 @@ class TestDrawUpdateView(LoggedInTestCase):
 
         response = self.client.post(reverse_lazy('draw:draw_update',kwargs={'pk':draw.pk}),params)
 
-        self.assertRedirects(response,reverse_lazy('draw:draw_detail',kwargs={'pk':draw.pk}))
+        self.assertRedirects(response, reverse_lazy('draw:draw_detail',kwargs={'pk':draw.pk}))
 
         self.assertEqual(Draw.objects.get(pk=draw.pk).draw_number,'タイトル編集後')
 
