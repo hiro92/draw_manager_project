@@ -1,14 +1,13 @@
-
 from django.test.testcases import LiveServerTestCase
 from django.urls import reverse_lazy
-from selenium.webdriver.chrome.webdriveer import WebDriver
+from selenium.webdriver.chrome.webdriver import WebDriver
 
 
 class TestLogin(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.selenium = WebDriver(executable_path='C:\Users\hirof\Downloads\chromedriver_win32 (3)')
+        cls.selenium = WebDriver(executable_path=r"C:\Users\hirof\portfolio\venv_draw_manager_project\chromedriver.exe")
 
     @classmethod
     def tearDownClass(cls):
@@ -24,4 +23,4 @@ class TestLogin(LiveServerTestCase):
         password_input.send_keys('hiro0419')
         self.selenium.find_element_class_name('btn').click()
 
-        self.assertEqual('図面一覧', self.selenium.title)
+        self.assertEqual('Top Page', self.selenium.title)
