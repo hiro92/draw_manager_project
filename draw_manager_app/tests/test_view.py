@@ -42,15 +42,15 @@ class TestDrawUpdateView(LoggedInTestCase):
 
     def test_update_draw_success(self):
 
-        draw = Draw.objects.create(user=self.test_user,draw_number='図面編集前')
+        draw = Draw.objects.create(user=self.test_user,draw_number=1111)
 
-        params = {'draw_number':'図面編集後'}
+        params = {'draw_number':2222}
 
         response = self.client.post(reverse_lazy('draw:draw_update',kwargs={'pk':draw.pk}),params)
 
         self.assertRedirects(response, reverse_lazy('draw:draw_detail',kwargs={'pk':draw.pk}))
 
-        self.assertEqual(Draw.objects.get(pk=draw.pk).draw_number,'タイトル編集後')
+        self.assertEqual(Draw.objects.get(pk=draw.pk).draw_number,2222)
 
     def test_update_draw_failure(self):
 

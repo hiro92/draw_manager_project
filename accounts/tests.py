@@ -15,7 +15,8 @@ class TestLogin(LiveServerTestCase):
         super().tearDownClass()
 
     def test_login(self):
-        self.selenium.get('http://127.0.0.1:8000' + str(reverse_lazy('account_login')))
+        self.selenium.get('http://localhost:8000' + str(reverse_lazy('account_login')))
+
         username_input = self.selenium.find_element_by_name("login")
         username_input.send_keys('hirofumi.4.4.19@gmail.com')
         password_input = self.selenium.find_element_by_name("password")
